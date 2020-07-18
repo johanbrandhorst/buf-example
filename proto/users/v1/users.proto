@@ -1,0 +1,25 @@
+syntax="proto3";
+
+package users.v1;
+
+option go_package = "github.com/johanbrandhorst/buf-example/proto/users/v1;userspb";
+
+import "google/protobuf/timestamp.proto";
+
+message User {
+    string id = 1;
+    string name = 2;
+    google.protobuf.Timestamp create_time = 3;
+}
+
+service UserService {
+    rpc AddUser(AddUserRequest) returns (AddUserResponse) {}
+}
+
+message AddUserRequest {
+    string name = 1;
+}
+
+message AddUserResponse {
+    User user = 1;
+}
