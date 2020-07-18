@@ -30,3 +30,14 @@ func (s *Service) AddUser(ctx context.Context, req *userspb.AddUserRequest) (*us
 		User: user,
 	}, nil
 }
+
+func (s *Service) ListUsers(ctx context.Context, _ *userspb.ListUsersRequest) (*userspb.ListUsersResponse, error) {
+	s.mu.Lock()
+	users := make([]*userspb.User, len(s.users))
+	copy(users, s.users)
+	s.mu.Unlock()
+
+	return &userspb.ListUsersResponse{
+		Users: users,
+	}, nil
+}
